@@ -15,9 +15,6 @@ export default function Main() {
 
   useEffect(() => {
     let socket = io(socketUrl);
-    // setSocket(() => {
-    //   io(socketUrl);
-    // });
     socket.on("connect", () => console.log("Connected"));
     socket.on(events.LOGOUT, setUsers(false));
     socket.on(events.NEW_USER, setUsers(true));
