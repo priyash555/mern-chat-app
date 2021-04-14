@@ -1,20 +1,21 @@
 import React from "react";
-import event from "../../events";
+import events from "../../events";
 import { Grid, Header, Icon, Form, Message } from "semantic-ui-react";
+import { useState, useEffect } from "react";
 
 export default function LoginPage(props) {
   const [uname, setUname] = useState("");
   const [error, setError] = useState("");
 
   const setUser = (user) => {
-    let { socket } = this.state;
+    let { socket } = props.socket;
     props.setUser(user);
     socket.emit(events.NEW_USER, user);
   };
 
   const handleSubmit = () => {
-    isvalid(state)
-      ? socket.emit(event.IS_USER, nickname, setUser)
+    uname
+      ? props.socket.emit(events.IS_USER, uname, setUser)
       : setError("Please input your nickname");
   };
   const handleChange = (e) => {

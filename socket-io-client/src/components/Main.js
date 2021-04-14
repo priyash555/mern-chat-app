@@ -11,10 +11,10 @@ export default function Main() {
   const [users, setUsers] = useState({});
   const [pchats, setPchats] = useState([]);
 
-  const socketUrl = "/";
+  const socketUrl = "http://localhost:80/";
 
   useEffect(() => {
-    let socket = io(socketUrl);
+    let socket = io.connect(socketUrl);
     socket.on("connect", () => console.log("Connected"));
     socket.on(events.LOGOUT, setUsers(false));
     socket.on(events.NEW_USER, setUsers(true));

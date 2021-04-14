@@ -6,7 +6,7 @@ const io = require("socket.io")(server, {
     origin: "*",
   },
 });
-// const socketManage = require("./socketManage")(io);
+const socketManage = require("./socketManage")(io);
 const PORT = process.env.PORT || 80;
 const path = require("path");
 
