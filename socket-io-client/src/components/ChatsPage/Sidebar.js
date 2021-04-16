@@ -13,6 +13,7 @@ import {
 } from "semantic-ui-react";
 import Loader from "react-dots-loader";
 import "react-dots-loader/index.css";
+import { isChannel } from "../../../../server-side/server/methods";
 
 export default function Sidebar(props) {
   const [modal, setModal] = useState(false);
@@ -20,7 +21,7 @@ export default function Sidebar(props) {
   const [channelDescription, setChannelDescription] = useState("");
   const [error, setError] = useState(null);
 
-  displayChannels = (chats) =>
+  const displayChannels = (chats) =>
     chats.map((chat) => (
       <Menu.Item
         key={chat.name}
@@ -37,8 +38,8 @@ export default function Sidebar(props) {
       </Menu.Item>
     ));
 
-  displayUsers = (users) => {
-    let { user, setActivePChannel, pChats, activeChannel } = this.props;
+  const displayUsers = (users) => {
+    let { user, setActivePChannel, pChats, activeChannel } = props;
     delete users[user.nickname];
     users = Object.assign({ "You...": user }, users);
     return Object.keys(users).map((user) => {
@@ -53,7 +54,7 @@ export default function Sidebar(props) {
         <Menu.Item
           key={user}
           onClick={user === "You..." ? null : () => setActivePChannel(user)}
-          active={this.props.activeChannel.name === user}
+          active={props.activeChannel.name === user}
         >
           # {user[0].toUpperCase() + user.slice(1)}
           <Loader
@@ -83,17 +84,34 @@ export default function Sidebar(props) {
     setError("");
   };
 
-  handleSubmit = () => {
-    this.setState({ error: null });
-    let { channelDescription, channelName } = this.state;
-    if (this.isFormValid(this.state)) {
-      let { socket } = this.props;
+  const handleChange = (e) => {};
+
+  const isFormValid = () => {
+    if (channelDescription && channelName) {
+      setError(null);
+      return true;
+    } else {
+      setError("Name and Description required");
+      return false;
+    }
+  };
+
+  const handleSubmit = () => {
+    setError(null);
+    if (isFormValid()) {
+      let { socket } = props;
       socket.emit(
         events.CHECK_CHANNEL,
         { channelName, channelDescription },
-        this.checkChannel
+        checkChannel
       );
     }
+  };
+
+  const checkChannel = (isChannel) => {
+    isChannel
+      ? setError(`Channel "${channelName}" name alredy take`)
+      : closeModal();
   };
 
   return (
