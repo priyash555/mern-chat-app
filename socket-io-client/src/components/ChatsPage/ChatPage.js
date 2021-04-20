@@ -3,7 +3,7 @@ import events from "../../events";
 import { Grid } from "semantic-ui-react";
 import Sidebar from "./Sidebar";
 import MessageHeader from "./MessageHeader";
-import MessagesBody from "./MessagesBody";
+import MessageBody from "./MessageBody";
 import MessageInput from "./MessageInput";
 
 export default function ChatsPage(props) {

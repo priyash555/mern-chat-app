@@ -2,22 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Segment, Card } from "semantic-ui-react";
 import moment from "moment";
 
-
 export default function MessageBody(props) {
-  
-  useEffect(() => {
-    scrollDown();
-  }, [])
-  
-  const scrollDown(){
-    const { contaniner } = refs;
-    contaniner.scrollTop = contaniner.scrollHeight;
-  }
-  
+  // useEffect(() => {
+  //   scrollDown();
+  // }, [])
+  // const scrollDown(){
+  //   const { contaniner } = refs;
+  //   contaniner.scrollTop = contaniner.scrollHeight;
+  // }
   return (
     <Segment style={{ height: "calc( 100vh - 56px - 147px)" }}>
       <div
-        ref="contaniner"
+        // ref="contaniner"
         style={{
           height: "calc( 100vh - 56px - 147px - 35px)",
           overflowY: "auto",
